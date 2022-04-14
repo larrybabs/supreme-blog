@@ -1,21 +1,29 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
+import './App.css';
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    { title: "My first blog", body: "lorem ipsum...", author: "babs", id: 1 },
-    { title: "My second blog", body: "lorem ipsum...", author: "babs", id: 2 },
-    { title: "My third blog", body: "lorem ipsum...", author: "larry", id: 3 },
-  ]);
+  const [blogs, setBlogs] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const deleteHandler = (id) => {
-      const newBlogs = blogs.filter(blog => blog.id !== id)
-    setBlogs(newBlogs)
-} 
+
+useEffect(( )=> {
+    fetch('http://localhost:8000/blogs')
+    .then(res => {
+        return res.json();
+    })
+    .then(data => {
+        setBlogs(data);
+        setIsLoading(false);
+    }
+    )}
+
+,[]);
 
   return (
     <div>
-      <BlogList blogs={blogs} title={"All recent blogs"} deleteHandler={deleteHandler}/>
+        {isLoading && <p>Loading...</p>}
+      {blogs && <BlogList blogs={blogs} title={"All recent blogs"}/>}
     </div>
   );
 };

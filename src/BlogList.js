@@ -1,4 +1,4 @@
-const BlogList = ({blogs, title, deleteHandler}) => {
+const BlogList = ({blogs, title}) => {
 
 
   return (
@@ -9,7 +9,6 @@ const BlogList = ({blogs, title, deleteHandler}) => {
           <h2>{blog.title}</h2>
           {/* <h3>{blog.body}</h3> */}
           <p>Written by {blog.author}</p>
-          <button onClick={() => deleteHandler(blog.id)}>Delete blog</button>
         </div>
       ))}
     </div>
